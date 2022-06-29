@@ -837,18 +837,7 @@ INSERT INTO AUTOR(id,nombre) VALUES
 	(86,'Peter Benchley'           ),
 	(87,'Marilyn French'           ),
 	(88,'Arlene Eisenberg'         ), 
-	(89,'Charles Perrault'         ),
-	(90,'Charles Perrault'         ),
-	(91,'Charles Perrault'         ),
-	(92,'Charles Perrault'         ),
-	(93,'Charles Perrault'         ),
-	(94,'Charles Perrault'         ),
-	(95,'Charles Perrault'         ),
-	(96,'Charles Perrault'         ),
-	(97,'Charles Perrault'         ),
-	(98,'Charles Perrault'         ),
-	(99,'Charles Perrault'         ),
-	(100,'Charles Perrault'        );
+	(89,'Charles Perrault'         );
 
 
 INSERT INTO ID_BIBLIOGRAFICO(id,tipo,identificador) VALUES
