@@ -1,5 +1,6 @@
 USE BD_BINAES_2022;
 
+-- 
 
 INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES 
     (1 ,'Taller sobre Libros electronicos: uso y aprovechamiento', 75, 0x86f0566281),
