@@ -1,4 +1,4 @@
-USE BD_BINAES_2022;
+USE DB_BINAES_2022;
 
 -- 
 
@@ -69,34 +69,6 @@ INSERT INTO AREA(id,nombre,descripcion, piso, id_horario,id_responsable, id_disp
 INSERT INTO ROL(id,rol) VALUES 
     (1,'Administrador'),
     (2,'Usuario'      );
-
-INSERT INTO USUARIO(id,nombre,email,foto,cod_qr,direccion,institucion,ocupacion,id_rol_usuario,id_telefono,password_user) VALUES
-    (1, 'Miguel Alejandro Navarro' , 'AleNavarro12@bandesal.gob.sv', 0xe324f0b249, 0x2b3c903a39, '87 Ave. Sur, No. 13, Colonia Escalón',                          'Banco de Desarrollo de la República de El Salvador', 'Director de planificación y desarrollo institucional',               2, 3, HASHBYTES('SHA2_256','PASSWORD')),
-	(2, 'Daniela Michelle Torres'  , 'MichelleTorres@hotmail.com'  , 0xd3b0ea90e2, 0x9d3718d217, 'Avenida Monseñor Romero y Final Calle 5 de Noviembre, No. 117', 'Fondo social para la vivienda'                     , 'Analista en gestión ambiental',                                      1, 6, HASHBYTES('SHA2_256','PASSWORD')),
-	(3, 'Martín Elías Acosta'      , 'Martin@isss.gob.sv'          , 0xec891e49a3, 0xbcbd383ffa, 'Alameda Juan Pablo II y 39 Avenida Norte, No.23',               'Instituto Salvadoreño del Seguro Social'           , 'Subdirector General del ISSS',                                       1, 5, HASHBYTES('SHA2_256','PASSWORD')),
-	(4, 'Valeria Alexandra Escobar', 'Valeria-Escobar@ujmd.edu.sv' , 0xa896ef90b5, 0xe87e91ad41, '81 Avenida Norte, entre 7a y 9a Calle Poniente #162',           'Universidad Dr. José Matías Delgado'               , 'Directora de la Facultad de Cultura General “Francisco Gavidia”',    2, 7, HASHBYTES('SHA2_256','PASSWORD')),
-	(5, 'Adriana Carolina Martinez', 'AdrianaMa2018@fonaes.gob.sv' , 0x82164d6a19, 0xc615c67f55, 'Calle La Reforma, Casa #230, Colonia San Benito',               'Fondo Ambiental de El Salvador'                    , 'Técnica de prensa y redacción',                                      2, 1, HASHBYTES('SHA2_256','PASSWORD')),
-	(6, 'Carlos Gustavo Sánchez'   , 'Carlos.gustavo1@gmail.com'   , 0x67b0a8b231, 0xcbdefdf2d8, '99 Avenida Norte y final 9a Calle Poniente Bis # 624',          'Consejo Salvadoreño de la Agroindustria Azucarera' , 'Técnico Agroindustrial',                                             2, 10, HASHBYTES('SHA2_256','PASSWORD')),
-	(7, 'Adyni Arleht Pocasangre'  , 'AdyniPocasangre@hotmail.com' , 0xa14dc953e7, 0x67c79042ea, 'Boulevard del Hipódromo No. 444, Colonia San Benito',           'Superintendencia del Sistema Financiero'           , 'Coordinador del Departamento de Supervisión de Bancos Cooperativos', 1, 2, HASHBYTES('SHA2_256','PASSWORD')),
-	(8, 'Carlos Eduardo Grande'    , 'Carlos.Grande@hotmail.com'   , 0x5fe7b81037, 0x1a3f8b3fd9, 'Boulevard Sergio Vieira de Mello No. 243, San Francisco',       'Consejo Superior de Salud Pública'                 , 'Coordinador de Gestión Documental y Archivo',                        2, 4, HASHBYTES('SHA2_256','PASSWORD')),
-	(9, 'Iris Yanet Aguilar'       , 'Iris.yanet@seguridad.gob.sv' , 0x3c74e27a95, 0x8607165eee, 'Bulevar Tutunichapa, Casa N° 510',                              'Dirección General de Centros Penales'              , 'Directora del Consejo Criminológico Nacional',                       2, 8, HASHBYTES('SHA2_256','PASSWORD')),
-	(10, 'José Luis Menjívar'      , 'Jose.Menjivar@gmail.com'     , 0x33b116c164, 0x6e80981b8e, 'Calle El Mirador, entre 87 y 89 Av. Norte, No.12',              'Registro Nacional de las Personas Naturales'       , 'Asesor jurídico',                                                    2, 9, HASHBYTES('SHA2_256','PASSWORD'));
-
-INSERT INTO USUARIO (id, id_rol_usuario, id_telefono, nombre, email, password_user, direccion, institucion, ocupacion, foto, cod_qr) VALUES
-    (11,    2,  142,	    'Astra Vineall',    	'avinealla@ucoz.ru',            	'Qb7GmvD',  	'19 Heffernan Crossing',        'Yost-Kling',   	                'Director of Sales'         ,   0xe324f0b249    ,   0x2b3c903a39    ),
-    (12,    2,  205,	    'Shane Benediktovich',	'sbenediktovichb@theguardian.com',	'xpe0i4h4',	    '94404 Ronald Regan Street',    'Hills-Ryan',                   	'Nuclear Power Engineer'    ,   0xd3b0ea90e2    ,   0x9d3718d217    ),
-    (13,    2,  177,	    'Selena Rusted',    	'srustedc@ehow.com',            	'dWSjM6BvoRW',	'81 8th Alley',	                'McKenzie, Gerhold and Hagenes',	'Assistant Professor'       ,   0xec891e49a3    ,   0xbcbd383ffa    ),
-    (14,    2,  460,	    'Bethany Niess',    	'bniessd@ehow.com',             	'nQzvcGPfBMl',	'09 Ohio Court',        	    'Hane Group',               	    'Pharmacist'                ,   0xa896ef90b5    ,   0xe87e91ad41    ),
-    (15,    2,  116,	    'Tracey Kahler',    	'tkahlere@cisco.com',           	'ZuQuVL',	    '58 Raven Plaza',	            'Gutmann and Sons',         	    'Recruiter'                 ,   0x82164d6a19    ,   0xc615c67f55    ),
-    (16,    2,  261,	    'Arabela Emmert',   	'aemmertf@typepad.com',         	'yr9Zx5h',	    '5 4th Avenue',	                'Lynch, Franecki and Cormier',	    'Assistant Manager'         ,   0x67b0a8b231    ,   0xcbdefdf2d8    ),
-    (17,    2,  29,	        'Gradey Targe',     	'gtargeg@wix.com',              	'VDPuSv',   	'57726 Forest Dale Terrace',	'Morar Group',	                    'Help Desk Operator'        ,   0xa14dc953e7    ,   0x67c79042ea    ),
-    (18,    2,  299,	    'Olivie Baston',    	'obastonh@spotify.com',         	'F8rGXMl',  	'01 Stuart Road',	            'Mitchell, Conn and Abernathy',	    'Computer Systems Analyst I',   0x5fe7b81037    ,   0x1a3f8b3fd9    ),
-    (19,    2,  379,	    'Huntlee Lyal',     	'hlyali@kickstarter.com',       	'ibfR7v',   	'8 Shopko Point',	            'Rice, Murray and Rath',	        'Associate Professor'       ,   0x3c74e27a95    ,   0x8607165eee    ),
-    (20,    2,  20,	        'Olwen Ivanishin',  	'oivanishinj@furl.net',         	'S9OkJp',   	'69 Jana Trail',	            'Runolfsson, Harris and Turcotte',	'Civil Engineer'            ,   0x33b116c164    ,   0x6e80981b8e    ),
-    (21,    2,  76,	        'Allistir Vanichev',    'avanichevk@mozilla.org',       	'PJRIaH',   	'2 Eagan Drive',	            'Schumm-Hirthe',	                'Research Associate'        ,   0xa14dc953e7    ,   0x67c79042ea    ),
-    (22,    2,  452,	    'Lucille Lamberto', 	'llambertol@omniture.com',      	'fO0b1d',   	'1 Anniversary Circle',     	'Wilkinson, Considine and Witting',	'Senior Developer'          ,   0x5fe7b81037    ,   0x1a3f8b3fd9    ),
-    (23,    2,  277,	    'Jimmy Fayerman',   	'jfayermanm@phpbb.com',         	'Ki90wkFEvj0p',	'0416 Oriole Park',         	'Hartmann Group',	                'Senior Cost Accountant'    ,   0x3c74e27a95    ,   0x8607165eee    ),
-    (24,    2,  21,	        'Kelila Gibbie',    	'kgibbien@rakuten.co.jp',    	    '0gFD74MZbNZn',	'0 Gulseth Parkway',	        'Bergstrom-Cronin', 	            'Staff Scientist'           ,   0x33b116c164    ,   0x6e80981b8e    );
 
 
 INSERT INTO TELEFONO(id,telefono) VALUES
@@ -603,6 +575,35 @@ INSERT INTO TELEFONO (id, telefono) VALUES
 (499,    '+50373023147'),
 (500,    '+50376181895');
 
+
+INSERT INTO USUARIO(id,nombre,email,foto,cod_qr,direccion,institucion,ocupacion,id_rol_usuario,id_telefono,password_user) VALUES
+    (1, 'Miguel Alejandro Navarro' , 'AleNavarro12@bandesal.gob.sv', 0xe324f0b249, 0x2b3c903a39, '87 Ave. Sur, No. 13, Colonia Escalón',                          'Banco de Desarrollo de la República de El Salvador', 'Director de planificación y desarrollo institucional',               2, 3, HASHBYTES('SHA2_256','PASSWORD')),
+	(2, 'Daniela Michelle Torres'  , 'MichelleTorres@hotmail.com'  , 0xd3b0ea90e2, 0x9d3718d217, 'Avenida Monseñor Romero y Final Calle 5 de Noviembre, No. 117', 'Fondo social para la vivienda'                     , 'Analista en gestión ambiental',                                      1, 6, HASHBYTES('SHA2_256','PASSWORD')),
+	(3, 'Martín Elías Acosta'      , 'Martin@isss.gob.sv'          , 0xec891e49a3, 0xbcbd383ffa, 'Alameda Juan Pablo II y 39 Avenida Norte, No.23',               'Instituto Salvadoreño del Seguro Social'           , 'Subdirector General del ISSS',                                       1, 5, HASHBYTES('SHA2_256','PASSWORD')),
+	(4, 'Valeria Alexandra Escobar', 'Valeria-Escobar@ujmd.edu.sv' , 0xa896ef90b5, 0xe87e91ad41, '81 Avenida Norte, entre 7a y 9a Calle Poniente #162',           'Universidad Dr. José Matías Delgado'               , 'Directora de la Facultad de Cultura General “Francisco Gavidia”',    2, 7, HASHBYTES('SHA2_256','PASSWORD')),
+	(5, 'Adriana Carolina Martinez', 'AdrianaMa2018@fonaes.gob.sv' , 0x82164d6a19, 0xc615c67f55, 'Calle La Reforma, Casa #230, Colonia San Benito',               'Fondo Ambiental de El Salvador'                    , 'Técnica de prensa y redacción',                                      2, 1, HASHBYTES('SHA2_256','PASSWORD')),
+	(6, 'Carlos Gustavo Sánchez'   , 'Carlos.gustavo1@gmail.com'   , 0x67b0a8b231, 0xcbdefdf2d8, '99 Avenida Norte y final 9a Calle Poniente Bis # 624',          'Consejo Salvadoreño de la Agroindustria Azucarera' , 'Técnico Agroindustrial',                                             2, 10, HASHBYTES('SHA2_256','PASSWORD')),
+	(7, 'Adyni Arleht Pocasangre'  , 'AdyniPocasangre@hotmail.com' , 0xa14dc953e7, 0x67c79042ea, 'Boulevard del Hipódromo No. 444, Colonia San Benito',           'Superintendencia del Sistema Financiero'           , 'Coordinador del Departamento de Supervisión de Bancos Cooperativos', 1, 2, HASHBYTES('SHA2_256','PASSWORD')),
+	(8, 'Carlos Eduardo Grande'    , 'Carlos.Grande@hotmail.com'   , 0x5fe7b81037, 0x1a3f8b3fd9, 'Boulevard Sergio Vieira de Mello No. 243, San Francisco',       'Consejo Superior de Salud Pública'                 , 'Coordinador de Gestión Documental y Archivo',                        2, 4, HASHBYTES('SHA2_256','PASSWORD')),
+	(9, 'Iris Yanet Aguilar'       , 'Iris.yanet@seguridad.gob.sv' , 0x3c74e27a95, 0x8607165eee, 'Bulevar Tutunichapa, Casa N° 510',                              'Dirección General de Centros Penales'              , 'Directora del Consejo Criminológico Nacional',                       2, 8, HASHBYTES('SHA2_256','PASSWORD')),
+	(10, 'José Luis Menjívar'      , 'Jose.Menjivar@gmail.com'     , 0x33b116c164, 0x6e80981b8e, 'Calle El Mirador, entre 87 y 89 Av. Norte, No.12',              'Registro Nacional de las Personas Naturales'       , 'Asesor jurídico',                                                    2, 9, HASHBYTES('SHA2_256','PASSWORD'));
+
+INSERT INTO USUARIO (id, id_rol_usuario, id_telefono, nombre, email, password_user, direccion, institucion, ocupacion, foto, cod_qr) VALUES
+    (11,    2,  142,	    'Astra Vineall',    	'avinealla@ucoz.ru',            	'Qb7GmvD',  	'19 Heffernan Crossing',        'Yost-Kling',   	                'Director of Sales'         ,   0xe324f0b249    ,   0x2b3c903a39    ),
+    (12,    2,  205,	    'Shane Benediktovich',	'sbenediktovichb@theguardian.com',	'xpe0i4h4',	    '94404 Ronald Regan Street',    'Hills-Ryan',                   	'Nuclear Power Engineer'    ,   0xd3b0ea90e2    ,   0x9d3718d217    ),
+    (13,    2,  177,	    'Selena Rusted',    	'srustedc@ehow.com',            	'dWSjM6BvoRW',	'81 8th Alley',	                'McKenzie, Gerhold and Hagenes',	'Assistant Professor'       ,   0xec891e49a3    ,   0xbcbd383ffa    ),
+    (14,    2,  460,	    'Bethany Niess',    	'bniessd@ehow.com',             	'nQzvcGPfBMl',	'09 Ohio Court',        	    'Hane Group',               	    'Pharmacist'                ,   0xa896ef90b5    ,   0xe87e91ad41    ),
+    (15,    2,  116,	    'Tracey Kahler',    	'tkahlere@cisco.com',           	'ZuQuVL',	    '58 Raven Plaza',	            'Gutmann and Sons',         	    'Recruiter'                 ,   0x82164d6a19    ,   0xc615c67f55    ),
+    (16,    2,  261,	    'Arabela Emmert',   	'aemmertf@typepad.com',         	'yr9Zx5h',	    '5 4th Avenue',	                'Lynch, Franecki and Cormier',	    'Assistant Manager'         ,   0x67b0a8b231    ,   0xcbdefdf2d8    ),
+    (17,    2,  29,	        'Gradey Targe',     	'gtargeg@wix.com',              	'VDPuSv',   	'57726 Forest Dale Terrace',	'Morar Group',	                    'Help Desk Operator'        ,   0xa14dc953e7    ,   0x67c79042ea    ),
+    (18,    2,  299,	    'Olivie Baston',    	'obastonh@spotify.com',         	'F8rGXMl',  	'01 Stuart Road',	            'Mitchell, Conn and Abernathy',	    'Computer Systems Analyst I',   0x5fe7b81037    ,   0x1a3f8b3fd9    ),
+    (19,    2,  379,	    'Huntlee Lyal',     	'hlyali@kickstarter.com',       	'ibfR7v',   	'8 Shopko Point',	            'Rice, Murray and Rath',	        'Associate Professor'       ,   0x3c74e27a95    ,   0x8607165eee    ),
+    (20,    2,  20,	        'Olwen Ivanishin',  	'oivanishinj@furl.net',         	'S9OkJp',   	'69 Jana Trail',	            'Runolfsson, Harris and Turcotte',	'Civil Engineer'            ,   0x33b116c164    ,   0x6e80981b8e    ),
+    (21,    2,  76,	        'Allistir Vanichev',    'avanichevk@mozilla.org',       	'PJRIaH',   	'2 Eagan Drive',	            'Schumm-Hirthe',	                'Research Associate'        ,   0xa14dc953e7    ,   0x67c79042ea    ),
+    (22,    2,  452,	    'Lucille Lamberto', 	'llambertol@omniture.com',      	'fO0b1d',   	'1 Anniversary Circle',     	'Wilkinson, Considine and Witting',	'Senior Developer'          ,   0x5fe7b81037    ,   0x1a3f8b3fd9    ),
+    (23,    2,  277,	    'Jimmy Fayerman',   	'jfayermanm@phpbb.com',         	'Ki90wkFEvj0p',	'0416 Oriole Park',         	'Hartmann Group',	                'Senior Cost Accountant'    ,   0x3c74e27a95    ,   0x8607165eee    ),
+    (24,    2,  21,	        'Kelila Gibbie',    	'kgibbien@rakuten.co.jp',    	    '0gFD74MZbNZn',	'0 Gulseth Parkway',	        'Bergstrom-Cronin', 	            'Staff Scientist'           ,   0x33b116c164    ,   0x6e80981b8e    );
+
 INSERT INTO ACTIVIDAD(id,fecha_inicio,fecha_final,id_evento,id_area,id_usuario) VALUES
     (1, '220312 08:30:00 AM' ,'220313 01:00:00 PM', 1 ,7, 9),
 	(2, '220401 09:00:00 AM' ,'220401 11:00:00 AM', 3 ,4, 1),
@@ -625,8 +626,6 @@ INSERT INTO ACTIVIDAD(id,fecha_inicio,fecha_final,id_evento,id_area,id_usuario) 
 	(19,'220312 08:30:00 AM' ,'220313 01:00:00 PM', 1, 7, 10),
 	(20,'220312 01:30:00 PM' ,'220312 07:30:00 PM', 2, 9, 8);
 
-
-
 INSERT INTO ASISTENCIA(id_actividad, id_usuario,fecha_entrada,fecha_salida) VALUES
     (1,  9, '220312 08:30:00 AM' ,'220312 01:00:00 PM' ),
 	(2,  1, '220401 09:00:00 AM' ,'220401 11:00:00 AM' ),
@@ -648,7 +647,6 @@ INSERT INTO ASISTENCIA(id_actividad, id_usuario,fecha_entrada,fecha_salida) VALU
 	(18, 2, '220530 08:30:00 AM' ,'220530 10:30:00 AM' ),
 	(19, 10,'220312 08:30:00 AM' ,'220313 01:00:00 PM' ),
 	(20, 8, '220312 01:30:00 PM' ,'220312 07:30:00 PM' );
-
 
 INSERT INTO DISPONIBILIDAD_EJEMPLAR(id, disponible) VALUES
     (1,0),
