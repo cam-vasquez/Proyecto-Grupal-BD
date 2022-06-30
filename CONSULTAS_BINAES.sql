@@ -43,8 +43,28 @@ ORDER BY U.nombre DESC;
 
 
 --MOSTRAR EVENTOS, EL AREA DONDE HAN SIDO LOS EVENTOS, LA FECHA
+SELECT EV.TITULO, OB.objetivo AS 'OBJETIVO DEL EVENTO', A.fecha_final AS 'FECHA DE INICIO', A.fecha_final AS 'FECHA DE FINALIZACION', U.NOMBRE 'VISITANTES'/*, COUNT(U.ID) 'CONTANDO'*/, ASI.fecha_entrada AS 'ENTRO A',
+ASI.fecha_salida AS 'SALIO A'
+FROM EVENTO EV
+INNER JOIN ACTIVIDAD A
+ON EV.id= A.id_evento
+INNER JOIN USUARIO U
+ON U.id = A.id_usuario
+INNER JOIN OBJETIVO_EVENTO OB
+ON EV.id = OB.id_evento
+FULL OUTER JOIN ASISTENCIA ASI
+ON A.id = ASI.id_actividad
+GROUP BY U.NOMBRE, ev.titulo, A.fecha_final,a.fecha_inicio, ASI.fecha_entrada, ASI.fecha_salida, OB.objetivo
+ORDER BY EV.titulo  ASC;
 
 
+
+
+SELECT U.nombre, A.fecha_entrada, A.fecha_salida
+FROM USUARIO U
+FULL OUTER JOIN ASISTENCIA A
+ON U.id = A.id_usuario
+ORDER BY U.nombre ASC;
 
 
 SELECT * FROM EJEMPLAR
@@ -55,3 +75,9 @@ SELECT*FROM USUARIO;
 SELECT id_usuario FROM RESERVA_EJEMPLAR;
 SELECT*FROM EVENTO;
 SELECT * FROM OBJETIVO_EVENTO;
+SELECT *FROM ACTIVIDAD;
+
+
+
+
+select*from ASISTENCIA
