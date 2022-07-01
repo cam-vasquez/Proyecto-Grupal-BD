@@ -947,7 +947,6 @@ INSERT INTO ACTIVIDAD(id,fecha_inicio,fecha_final,id_evento,id_area,id_usuario) 
 	(19,'220312 08:30:00 AM' ,'220313 01:00:00 PM', 1, 7, 10),
 	(20,'220312 01:30:00 PM' ,'220312 07:30:00 PM', 2, 9, 8);
 
-
 INSERT INTO ASISTENCIA(id_actividad, id_usuario,fecha_entrada,fecha_salida) VALUES
     (1,  9, '220312 08:30:00 AM' ,'220312 01:00:00 PM' ),
 	(2,  1, '220401 09:00:00 AM' ,'220401 11:00:00 AM' ),
