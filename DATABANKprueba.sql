@@ -1,4 +1,259 @@
+CREATE DATABASE DB_BINAES_2022;
+
+DROP DATABASE DB_BINAES_2022;
+
 USE DB_BINAES_2022;
+
+--------- EVENTO ---------
+
+CREATE TABLE EVENTO(
+    id INT PRIMARY KEY,
+    titulo VARCHAR(120) NOT NULL,
+    asistentes INT NOT NULL, 
+    imagen VARBINARY(MAX) NULL, -- REVISAR SI PUEDE SER NOT NULL O NULL
+    --imagen https://docs.microsoft.com/en-us/sql/t-sql/data-types/ntext-text-and-image-transact-sql?view=sql-server-ver16
+);
+
+CREATE TABLE OBJETIVO_EVENTO(
+    id INT PRIMARY KEY,
+    objetivo VARCHAR(200) NOT NULL, 
+    id_evento INT NOT NULL,
+);
+
+--------- ACTIVIDAD  ---------
+
+CREATE TABLE ACTIVIDAD(
+    id INT PRIMARY KEY,
+    fecha_inicio DATETIME NOT NULL,
+    fecha_final DATETIME NOT NULL,
+    id_evento INT NOT NULL,
+    id_area INT NOT NULL,
+    id_usuario INT NOT NULL,
+);
+
+---------  AREA ---------
+
+CREATE TABLE AREA(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(250) NOT NULL,
+    piso INT NOT NULL,
+    id_horario INT NOT NULL,
+    id_responsable INT NOT NULL,
+    id_disponibilidad_area INT NOT NULL,
+);
+
+CREATE TABLE DISPONIBILIDAD_AREA(
+    id INT PRIMARY KEY,
+    disponible BIT NOT NULL,  
+    /* Si es 1 es true y si es 0 falsa.
+    DOCUMENTATION:
+        -https://docs.microsoft.com/en-us/sql/t-sql/data-types/bit-transact-sql?view=sql-server-ver16
+        -https://www.databasestar.com/sql-boolean-data-type/#:~:text=SQL%20Server%20Boolean,TRUE%20and%200%20for%20FALSE.
+     */
+);
+
+
+
+CREATE TABLE RESPONSABLE(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(75) NOT NULL
+);
+
+CREATE TABLE HORARIO(
+    id INT PRIMARY KEY,
+    dias VARCHAR(50) NOT NULL,
+    horas VARCHAR(25) NOT NULL,
+);
+
+
+--------- ASISTENCIA ---------
+
+CREATE TABLE ASISTENCIA(
+    id_actividad INT NOT NULL,     
+    id_usuario INT NOT NULL,
+    fecha_entrada DATETIME NOT NULL,
+    fecha_salida DATETIME NULL,
+);
+
+--------- USUARIO ---------
+
+CREATE TABLE USUARIO(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    email VARCHAR(75) NOT NULL,
+    foto VARBINARY(MAX) NOT NULL, --* falta tratar con default
+    cod_qr VARBINARY(MAX) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
+    institucion VARCHAR(125) NOT NULL,
+    ocupacion VARCHAR(100) NOT NULL,
+    id_rol_usuario INT NOT NULL,
+    id_telefono INT NOT NULL,    
+    password_user VARCHAR(120) NOT NULL,
+    --  hay un principio para tratar contraseñas en Base de datos:
+    /* DO NOT STORE PASSWORD IN A DATA BASE
+    DOCUMENTATION>
+        - https://bornsql.ca/blog/how-to-really-store-a-password-in-a-database/
+        - https://auth0.com/blog/hashing-passwords-one-way-road-to-security/
+        - https://www.mssqltips.com/sqlservertip/4037/storing-passwords-in-a-secure-way-in-a-sql-server-database/ 
+        - https://stackoverflow.com/questions/4181198/how-to-hash-a-password
+     */
+);
+
+CREATE TABLE ROL(
+    id INT PRIMARY KEY,
+    rol VARCHAR(15) NOT NULL,
+);
+
+CREATE TABLE TELEFONO(
+    id INT PRIMARY KEY,
+    telefono CHAR(12) NOT NULL UNIQUE
+        CHECK(telefono LIKE '+503[2|6|7][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+);
+
+--------- PRESTAMO Y RESERVA EJEMPLAR ---------
+
+CREATE TABLE PRESTAMO_EJEMPLAR(
+    id_usuario INT NOT NULL,
+    id_ejemplar INT NOT NULL,     
+    fecha_prestamo DATETIME NOT NULL,
+    fecha_devolucion DATETIME NOT NULL,  
+);
+
+--------- EJEMPLAR  ---------
+
+CREATE TABLE RESERVA_EJEMPLAR(
+    id_usuario INT NOT NULL,
+    id_ejemplar INT NOT NULL,     
+    fecha_reserva DATETIME NOT NULL,
+    fecha_devolucion DATETIME NOT NULL, 
+);
+
+CREATE TABLE EJEMPLAR(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    fecha_publicacion DATE NOT NULL,
+    portada VARBINARY(MAX) NOT NULL,--revisar si puede ser NOT NULL Y PONER UN DEFAULT
+    id_coleccion INT NULL,
+    id_autor INT NOT NULL,
+    id_bibliografico INT NOT NULL,
+    id_editorial INT NOT NULL,
+    id_idioma INT NOT NULL,
+    id_formato INT NOT NULL,
+    id_disponibilidad_ejemplar INT NOT NULL,
+);
+
+CREATE TABLE DISPONIBILIDAD_EJEMPLAR(
+    id INT PRIMARY KEY,
+    disponible BIT NOT NULL, 
+);
+
+CREATE TABLE AUTOR(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE ID_BIBLIOGRAFICO(
+    id INT PRIMARY KEY,
+    tipo VARCHAR(15) NULL,
+    identificador VARCHAR(50) NULL,
+);
+
+CREATE TABLE FORMATO(
+    id INT PRIMARY KEY,
+    formato VARCHAR(10) NOT NULL,
+);
+
+CREATE TABLE IDIOMA(
+    id INT PRIMARY KEY,
+    idioma VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE EDITORIAL(
+    id INT PRIMARY KEY,
+    editorial VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE PALABRA_CLAVE(
+    id INT PRIMARY KEY,
+    etiqueta VARCHAR(100) NOT NULL,
+    id_ejemplar INT NOT NULL,
+);
+
+
+--------- COLECCION ---------
+
+CREATE TABLE COLECCION(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(75) NOT NULL,
+    id_tipo INT NOT NULL,
+    id_genero INT NOT NULL,
+);
+
+CREATE TABLE GENERO(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(30) NOT NULL,
+);
+
+CREATE TABLE TIPO_COLECCION(
+    id INT PRIMARY KEY,
+    nombre VARCHAR(75) NOT NULL,
+);
+
+------------ FK's --------------
+---*
+
+ALTER TABLE OBJETIVO_EVENTO ADD CONSTRAINT fk_id_evento_objetivo FOREIGN KEY(id_evento) REFERENCES EVENTO(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+;
+
+ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_evento FOREIGN KEY(id_evento) REFERENCES EVENTO(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+;
+
+ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_area FOREIGN KEY(id_area) REFERENCES AREA(id);
+ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_usuario FOREIGN KEY(id_usuario) REFERENCES USUARIO(id);
+
+ALTER TABLE AREA ADD CONSTRAINT fk_id_horario FOREIGN KEY(id_horario) REFERENCES HORARIO(id);
+ALTER TABLE AREA ADD CONSTRAINT fk_id_responsable FOREIGN KEY(id_responsable) REFERENCES RESPONSABLE(id);
+
+ALTER TABLE ASISTENCIA ADD CONSTRAINT pk_asitencia  PRIMARY KEY (id_actividad, id_usuario);
+ALTER TABLE ASISTENCIA ADD CONSTRAINT fK_id_actividad_asistencia FOREIGN KEY (id_actividad) REFERENCES ACTIVIDAD(id);
+ALTER TABLE ASISTENCIA ADD CONSTRAINT fk_id_usuario_asistencia FOREIGN KEY (id_usuario) REFERENCES USUARIO(id);
+
+ALTER TABLE USUARIO ADD CONSTRAINT fk_id_rol_user FOREIGN KEY(id_rol_usuario) REFERENCES ROL(id);
+ALTER TABLE USUARIO ADD CONSTRAINT fk_id_telefono FOREIGN KEY(id_telefono) REFERENCES TELEFONO(id);
+---*
+
+ALTER TABLE PRESTAMO_EJEMPLAR ADD CONSTRAINT pk_prestamo_ejemplar PRIMARY KEY (id_usuario, id_ejemplar);
+ALTER TABLE PRESTAMO_EJEMPLAR ADD CONSTRAINT fk_id_usuario_prestamo FOREIGN KEY (id_usuario) REFERENCES USUARIO(id);
+ALTER TABLE PRESTAMO_EJEMPLAR ADD CONSTRAINT fk_id_ejemplar_prestamo FOREIGN KEY (id_ejemplar) REFERENCES EJEMPLAR(id);
+
+ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT pk_reserva_ejemplar PRIMARY KEY (id_usuario, id_ejemplar);
+ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT fk_id_usuario_reserva FOREIGN KEY (id_usuario) REFERENCES USUARIO(id);
+ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT fk_id_ejemplar_reserva FOREIGN KEY (id_ejemplar) REFERENCES EJEMPLAR(id);
+
+---*
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_coleccion FOREIGN KEY(id_coleccion) REFERENCES COLECCION(id)
+    ON DELETE SET NULL
+;
+
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_autor FOREIGN KEY(id_autor) REFERENCES AUTOR(id);
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_bibliografico FOREIGN KEY(id_bibliografico) REFERENCES ID_BIBLIOGRAFICO(id);
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_editorial FOREIGN KEY(id_editorial) REFERENCES EDITORIAL(id);
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_idioma FOREIGN KEY(id_idioma) REFERENCES IDIOMA(id);
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_formato FOREIGN KEY(id_formato) REFERENCES FORMATO(id);
+
+ALTER TABLE PALABRA_CLAVE ADD CONSTRAINT fk_id_ejemplar FOREIGN KEY(id_ejemplar) REFERENCES EJEMPLAR(id);
+
+--*
+ALTER TABLE COLECCION ADD CONSTRAINT fk_id_tipo FOREIGN KEY(id_tipo) REFERENCES TIPO_COLECCION(id);
+ALTER TABLE COLECCION ADD CONSTRAINT fk_id_genero FOREIGN KEY(id_genero) REFERENCES GENERO(id);
+
+ALTER TABLE AREA ADD CONSTRAINT fk_id_disponibilidad_area FOREIGN KEY (id_disponibilidad_area) REFERENCES DISPONIBILIDAD_AREA(id);
+ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_disponibilidad_ejemplar FOREIGN KEY (id_disponibilidad_ejemplar) REFERENCES DISPONIBILIDAD_EJEMPLAR(id);
 
 ----------- INSERTS --------------------------
 
@@ -14,7 +269,6 @@ INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES
 	(8 ,'Cinefórum: Derechos humanos y personas mayores', 76, 0x550a0385bc),
 	(9 ,'Jornada de entrenamiento en el uso de recursos online', 115, 0x5e3bb52393),
 	(10,'Exposición sobre la literatura en El Salvador', 90, 0x3d941fb9f1);
-	
 INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES 
 	(11,'Ferias de Actualización Bibliográfica'                                                                        , 65, 0x55bc3686f6),
 	(12,'Venta de Bibliografía Básica'                                                                                 , 35, 0xfcb9f108e0),
@@ -108,98 +362,6 @@ INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES
 	(100,'Taller para contar cuentos'                                                                                  , 122,0x0eb18a1ab1);
 
 
-
-	INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES 
-	(11,'Ferias de Actualización Bibliográfica'                                                                        , 65, 0x55bc3686f6),
-	(12,'Venta de Bibliografía Básica'                                                                                 , 35, 0xfcb9f108e0),
-	(13,'Foro sobre Clara Campoamor Rodriguez: mujer y ciudadana (1888-1972)'                                          , 74, 0xb01781cbc2),
-	(14,'El marqués de Santillana. Imágenes y letras'                                                                  , 164,0x39c3deda32),
-	(15,'Cuanto sé de mí. José Hierro en su centenario (1922-2022)'                                                    , 18, 0x39865cdee3),
-	(16,'Antonio de Nebrija (c. 1444-1522): "El orgullo de ser gramáticor"'                                            , 64, 0xee39bfe779),
-	(17,'Feria de Libros y Recursos Electrónicos 2022'                                                                 , 86, 0xbb0711c261),
-	(18,'Ciclo de Escritores Latinoamericanos'                                                                         , 46, 0xb5c1430398),
-	(19,'El amor por la lectura y los Clubs de Lectura'                                                                , 85, 0xcf7d613aff),
-	(20,'Capacitación para la Gestión Editorial de Revistas Electrónicas'                                              , 43, 0xc407bd0bab),
-	(21,'Lectura de poesía de escritores salvadoreños'                                                                 , 121,0x604b2374db),
-	(22,'Seminario "Impulsando el desarrollo de las bibliotecas escolares"'                                            , 65, 0x61351a9d0d),
-	(23,'Taller "Biblioteca escolar: Leer es un juego, más allá del tablero"'                                          , 70, 0xb2f87ad95b),
-	(24,'Club de lectura. “La ciudad de los cuentos”'                                                                  , 87, 0xd786c74fef),
-	(25,'Programa: Enfoque de género en las bibliotecas: Un Espacio de Encuentro para todos y todas'                   , 40, 0xd908967459),
-	(26,'Cinefórum: Yawar Wanka'                                                                                       , 75, 0xc708516917),
-	(27,'Conversatorio Biblioteca y sociedad: fortaleciendo lazos culturales'                                          , 64, 0x723ec87275),
-	(28,'Convocatoria Dibujo Infantil 2022'                                                                            , 72, 0xbe2db6048b),
-	(29,'Mesa de diálogo: Centenario de un andar. Ulysses'                                                             , 53, 0xe15d9addf3),
-	(30,'Presentación: “El libro de los reyes de Ferdowsí: La gran épica persa traducida al español'                   , 26, 0x06c8ce06ff),
-	(31,'Conferencia: El lector del mundo y sus libros: la biblioteca perdida de Hernando Colón'                       , 73, 0x5b04bc00ea),
-	(32,'Presentación del libro: “Pautas para el desarrollo y la evaluación de proyectos digitales en las humanidades”', 167,0x5454bc173d),
-	(33,'Exposición Historia y destino de la Bibliografía Salvadoreña'                                                 , 126,0x8795f9f2f5),
-	(34,'Exposición Memoria Viva del Libro'                                                                            , 90, 0xcff227ba99),
-	(35,'Curso Literatura fantástica en Hispanoamérica'                                                                , 38, 0xa9ca737fac),
-	(36,'Curso: “¿Basada en hechos reales? Novela histórica, historia y biografía'                                     , 80, 0x9cf275a848),
-	(37,'Curso Latín Básico 2022'                                                                                      , 34, 0x4079e4a4a2),
-	(38,'Curso Literatura fantástica en España'                                                                        , 35, 0xd961ddb275),
-	(39,'Exposición: "La prensa en la conformación de la cultura nacional"'                                            , 78, 0x08d3f5de4d),
-	(40,'Conversatorio: ¿Cómo una idea se convierte en una librería?'                                                  , 36, 0x52f732f83b),
-	(41,'Exposición sobre Kâulak: fotógrafo, pintor y escritor'                                                        , 94, 0x6e51a11895),
-	(42,'Taller de biografia: La Re-construcción de una vida'                                                          , 35, 0x01ae5a229e),
-	(43,'Taller de lectura: el velo de la escritura'                                                                   , 142,0x199b336ed41),
-	(44,'Seminario de novela breve'                                                                                    , 110,0xfafc18fccb),
-	(45,'Taller de lectura y escritura de poesía "Modernos y modernísimos: ¡al poema le incumbe todo!"'                , 54, 0x962375548b),
-	(46,'Club de lectura de literatura salvadoreña y extranjera'                                                       , 70, 0x0a2d4987e0),
-	(47,'Taller de cine y literatura IV: La razón de la sinrazón'                                                      , 41, 0xfdef7a0f25),
-	(48,'Curso “Maestros del pensamiento”'                                                                             , 90, 0x72ab647d53),
-	(49,'Taller “Herramientas para cuento y novela”'                                                                   , 76, 0xb02abb9ca4),
-	(50,'Taller de lectura de narrativa latinoamericana contemporánea.'                                                , 68, 0x6ace759fd8),
-	(51,'Curso “Saberes de la opresión, saberes de la emancipación"'                                                   , 86, 0xe54ab1ae56),
-	(52,'Curso-taller “Crónicas viajeras. Invitación a la escritura del mundo”'                                        , 65, 0x396905857a),
-	(53,'Curso “Michel Foucault y la historia de la filosofía”'                                                        , 26, 0x9953f05eca),
-	(54,'Taller “Herramientas para cuento y novela”'                                                                   , 45, 0x5fa499d504),
-	(55,'Taller de escritura para jóvenes'                                                                             , 65, 0xfaeaf31675),
-	(56,'Curso “Sicilia y sus escritores”'                                                                             , 52, 0x41bd131928),
-	(57,'Taller de diarios y cartas. ¿Cómo abordar dos géneros anacrónicos en el presente?'                            , 13, 0xc69195c1ff),
-	(58,'Curso “Filosofía y literatura: afinidades electivas”'                                                         , 68, 0x9e194a383e),
-	(59,'Curso “Leer para escribir: Virginia Woolf y la creación de un punto de vista inusual”'                        , 98, 0x8486075b8c),
-	(60,'Curso “Dos reyes, dos laberintos”. Encuentros entre cine y literatura III'                                    , 142,0xcd42a4d8a8),
-	(61,'Foro: Explorando los materiales cartográficos y fotográficos de la Biblioteca Nacional'                       , 56, 0x5b5caac35d),
-	(62,'Seminario-taller “El humor como práctica y experiencia. Sobre viñeta, historieta e intervención humorística"' , 78, 0x86857df179),
-	(63,'Taller conociendo las herramientas del catálogo en línea de la Biblioteca Nacional'                           , 40, 0xbf05262ae8),
-	(64,'Curso-taller: Crónicas viajeras. Invitación a la escritura del mundo'                                         , 102,0x1dfce7f797),
-	(65,'Taller: Cómo encontrar poesía en el motor de un auto'                                                         , 105,0x25ad590e78),
-	(66,'Taller de iniciación en la ficción'                                                                           , 54, 0xeaa64103b8),
-	(67,'Curso: Problemas históricos abordados desde cinematografías nacionales y extranjeras'                         , 70, 0x6776ca53cd),
-	(68,'Curso: La ciencia ficción desde sus orígenes hasta la actualidad'                                             , 84, 0xd635ef0e58),
-	(69,'Curso: El escritor y sus personajes'                                                                          , 67, 0xfe0cd8ba03),
-	(70,'Curso: Encuentros entre cine y literatura'                                                                    , 60, 0x38ac9d8db3),
-	(71,'Conferencia "Franceses en la revolución del 25 de Mayo de 1809"'                                              , 76, 0xe2204120f9),
-	(72,'Exposición “Códices de México e Inventarios del Mundo”'                                                       , 37, 0xcb150f4ed3),
-	(73,'Curso de Epigrafía Maya'                                                                                      , 94, 0x6764e16c58),
-	(74,'Exposición: Diálogos en el arte salvadoreño 1900-2017'                                                        , 66, 0x08daa637e2),
-	(75,'Foro sobre las mujeres en la independencia de Centroamérica'                                                  , 73, 0x548f193e2c),
-	(76,'Seminario internacional: “Cuidado,violencia y políticas públicas para la niñez y adolescencia”'               , 20, 0x3b847d938b),
-	(77,'Foro Contando lo Invisible, primero las Niñas'                                                                , 50, 0xaf7a539e16),
-	(78,'Taller de lectura: Los amigos de Shakespeare'                                                                 , 98, 0x2bf4a2843a),
-	(79,'Foro: "La producción Artesanal en El Salvador"'                                                               , 113,0x9e1355a276),
-	(80,'Foro: "La nueva Era de Empresas Sociales en El Salvador"'                                                     , 53, 0x9aaa70699d),
-	(81,'Cinefórum: Conociendo la historia de Alfredo Espino en la literatura'                                         , 52, 0x8f411fdc97),
-	(82,'Conversatorio virtual: “Participación: una reflexión desde la ciudadanía”'                                    , 96, 0x488db5b706),
-	(83,'Exposición: Unidos por la cultura'                                                                            , 65, 0x1568cd0b8b),
-	(84,'"Foro Innovación y Conocimiento sobre Turismo Accesible"'                                                     , 74, 0x23afcda6b6),
-	(85,'"Presentación de libro: «Lo que queda de la noche"'                                                           , 36, 0xb6265a7a55),
-	(86,'Foro: Las vanguardias poéticas latinoamericanas'                                                              , 46, 0xe6b6215cb1),
-	(87,'Taller de dibujo secuencial '                                                                                 , 73, 0x1308e4ab5f),
-	(88,'Taller infantil para la elaboración de cortina con botellas'                                                  , 120,0x6d19b5571a),
-	(89,'Taller Mini reporteros'                                                                                       , 40, 0x7e39e6103f),
-	(90,'Foro: Fortaleciendo capacidades sociales y culturales para reducir las brechas de desigualdad en El Salvador' , 60, 0x371c4381c0),
-	(91,'Taller de edición de wikipedia'                                                                               , 64, 0x7c9fd000c0),
-	(92,'Taller de Escritura Creativa'                                                                                 , 35, 0x6888bb4c2e),
-	(93,'Taller: Restauración de libros'                                                                               , 64, 0x685e5d9b9b),
-	(94,'Conversatorio Podcast y Memoria Histórica'                                                                    , 90, 0x8b3216313d),
-	(95,'Taller: Cartas para reescribir la violencia'                                                                  , 54, 0x12d4b3253e),
-	(96,'III Encuentro de poesía de San Salvador'                                                                      , 50, 0xb4ca8b11f8),
-	(97,'Exposición: La batalla del volcán'                                                                            , 75, 0x4982d38714),
-	(98,'Taller de Introducción a la Investigación Operativa'                                                          , 60, 0x41983dbf79),
-	(99,'Taller: La comunicación a través del juego'                                                                   , 90, 0xd8b435015f),
-	(100,'Taller para contar cuentos'                                                                                  , 122,0x0eb18a1ab1);
 
 INSERT INTO OBJETIVO_EVENTO(id,objetivo,id_evento) VALUES
     (1,'Promover la alfabetización digital y facilitar el acceso a las TICs a los miembros de la sociedad', 1),
@@ -901,11 +1063,7 @@ INSERT INTO AUTOR(id,nombre) VALUES
 	(15,'Beverley Birch'           ),
 	(16,'Charles Perrault'         );
 
-<<<<<<< HEAD
-	INSERT INTO AUTOR(id,nombre) VALUES
-=======
 INSERT INTO AUTOR(id,nombre) VALUES
->>>>>>> Fer
 	(17,'Miguel de Cervantes'      ),
 	(18,'Charles Dickens'          ),
 	(19,'J.R.R. Tolkien'           ),
@@ -979,10 +1137,6 @@ INSERT INTO AUTOR(id,nombre) VALUES
 	(87,'Marilyn French'           ),
 	(88,'Arlene Eisenberg'         ), 
 	(89,'Charles Perrault'         );
-<<<<<<< HEAD
-
-=======
->>>>>>> Fer
 
 INSERT INTO ID_BIBLIOGRAFICO(id,tipo,identificador) VALUES
     (1, 'ISBN', '9781532979685'),
@@ -1066,11 +1220,7 @@ INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,i
 	(20, 'La Divina Commedia'                                                                        , '1965-08-13', 0x7c1b54a949,  1, 14, 21, 12, 4, 2, 2),
 	(21, 'La Cenicienta'                                                                             , '1637-11-20', 0x7c1b54a949,  11, 11, 22, 14, 1, 2, 2);
 
-<<<<<<< HEAD
-	INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,id_bibliografico,id_editorial,id_idioma,id_formato,id_disponibilidad_ejemplar) VALUES
-=======
 INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,id_bibliografico,id_editorial,id_idioma,id_formato,id_disponibilidad_ejemplar) VALUES
->>>>>>> Fer
 	(22, 'Don Quijote'                                                                               , '1605-01-16', 0x3f860d2c54,  1,  17, 22, 14, 1, 1, 1),
 	(23, 'Historia de dos ciudades'                                                                  , '1859-11-26', 0x830d12a668,  3,  18, 22, 14, 1, 1, 1),
 	(24, 'El señor de los anillos'                                                                   , '1954-07-29', 0x7c8ee9234b,  11, 16, 22, 14, 1, 1, 1),
@@ -1151,20 +1301,6 @@ INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,i
 	(99, 'Sólo para mujeres '                                                                        , '2006-11-20', 0x26f0a83fb8,  1,  87, 22, 14, 1, 1, 1),
 	(100, 'Qué esperar cuando se está esperando '                                                    , '1991-01-16', 0x1a958c7b1b,  10, 88, 22, 14, 1, 1, 1);
 
-<<<<<<< HEAD
-INSERT INTO PRESTAMO_EJEMPLAR(id_usuario,id_ejemplar,fecha_prestamo,fecha_devolucion) VALUES
-    (1, 4,'220315 09:30:00 AM','220325 02:30:00 PM'),
-	(2, 8,'220312 07:45:00 AM','220321 09:40:00 AM'),
-	(3, 2,'220401 08:32:00 AM','220314 07:25:00 AM'),
-	(4, 10,'220327 02:40:00 PM','220329 04:33:00 PM'),
-	(5, 16,'220507 07:42:00 AM','220513 01:06:00 PM'),
-	(6, 3,'220212 08:14:00 AM','220219 08:30:00 AM'),
-	(7, 7,'220423 07:40:00 AM','220428 11:56:00 AM'),
-	(8, 12,'220503 10:58:00 AM','220307 02:30:00 PM'),
-	(9, 1,'220113 04:30:00 PM','220328 08:23:00 AM'),
-	(10, 9,'220318 08:30:00 AM','220324 03:36:00 PM');
-=======
->>>>>>> Fer
 
 INSERT INTO RESERVA_EJEMPLAR(id_usuario,id_ejemplar,fecha_reserva, fecha_devolucion) VALUES
     (1, 9,'220325 02:30:00 PM','220408  10:05:00 AM'),
