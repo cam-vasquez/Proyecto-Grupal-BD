@@ -1,46 +1,6 @@
 
 # Documentación Proyecto Final 
 
-> Este documento ha sido diseñado como caso de estudio de las asignaturas BASES DE DATOS y PROGRAMACIÓN ORIENTADA A OBJETOS, el objetivo es que los estudiantes puedan aplicar el conocimiento adquirido durante el curso 01-2022. Este caso de estudio pretende actuar como una herramienta didáctica.
-
-
-<table>
-  <tr>
-   <td><strong>Título</strong>
-   </td>
-   <td colspan="3" >Caso de estudio final de Bases de datos y Programación orientada a objetos.
-   </td>
-  </tr>
-  <tr>
-   <td><strong>Descripción</strong>
-   </td>
-   <td colspan="3" >Proyecto de asignatura 
-   </td>
-  </tr>
-  <tr>
-   <td><strong>Responsables</strong>
-   </td>
-   <td colspan="3" >Erick Varela, Ronaldo Canizales, Douglas Hernandez, Marlene Aguilar, Guillermo Cortes 
-   </td>
-  </tr>
-  <tr>
-   <td><strong>Organización</strong>
-   </td>
-   <td colspan="3" >Universidad Centroamericana José Simeón Cañas
-   </td>
-  </tr>
-</table>
-
-
-## Objetivo de la actividad
-
-<div style="text-align: justify">
-
-1. Aplicar los temas discutidos durante los cursos de bases de datos y programación orientada a objetos en el ciclo I de 2022, utilizando como contexto, un caso que simula un problema real, y donde se permite a los estudiantes proponer y crear una solución tecnológica que favorece de manera proactiva a la realidad nacional
-2. Lograr una visión unificada de la etapa de análisis y desarrollo de un proyecto de programación incluyendo el análisis del problema, diseño y creación de la base de datos y desarrollo de la aplicación con la que el cliente podrá interactuar
-3. Comprender la importancia de utilizar las mejores prácticas de programación en cada etapa del desarrollo de una solución de software.
-</div> 
-
 ## Definición y contextualización de la problemática a resolver.
 <div style="text-align: justify">
 
