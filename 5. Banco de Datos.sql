@@ -1478,6 +1478,21 @@ INSERT INTO GENERO(id,nombre) VALUES
 	(11, 'Literario'              ),
 	(12, 'Matématico'             );
 
+    
+INSERT INTO GENERO(id,nombre) VALUES
+   	(1, 'Científico'              ),
+	(2, 'Períodistico'            ),
+	(3, 'Documental'              ),
+	(4, 'Académico '              ),
+	(5, 'Historia'                ),
+	(6, 'Literatura clásica'      ),
+	(7, 'Literatura contemporánea'), 
+	(8, 'Filosófico'              ),
+	(9, 'Multimedia'              ),
+	(10, 'Artístico'              ),
+	(11, 'Literario'              ),
+	(12, 'Matématico'             );
+
 INSERT INTO COLECCION(id,nombre,id_tipo,id_genero) VALUES
 	(1,'General', 6, 1),
     (2,'Nacional', 10, 5),
@@ -1621,7 +1636,7 @@ INSERT INTO EDITORIAL(id,editorial) VALUES
 	(12,'Revista Portuguesa De Educação' ),
 	(13,'La Chispa'), 
 	(14,'La Galera');
-
+    
 INSERT INTO IDIOMA(id,idioma) VALUES
     (1,'Español'),
 	(2,'Inglés'),
@@ -1630,7 +1645,11 @@ INSERT INTO IDIOMA(id,idioma) VALUES
 	(5,'Coreano'),
 	(6,'Portugués');
 
-
+INSERT INTO IDIOMA(id,idioma) VALUES
+    (7,'Aleman'),
+	(8,'Japonés'),
+	(9,'Ruso'),
+	(10,'Chino');
 
 
 INSERT INTO FORMATO(id,formato) VALUES
@@ -1638,8 +1657,8 @@ INSERT INTO FORMATO(id,formato) VALUES
 	(2,'Digital');
 
 INSERT INTO DISPONIBILIDAD_EJEMPLAR(id, disponible) VALUES
-    (1,0),
-	(2,1);
+    (1, 0),
+	(2, 1);
 
 INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,id_bibliografico,id_editorial,id_idioma,id_formato,id_disponibilidad_ejemplar) VALUES
     (1,  'La Ilíada'                                                                                 , '1921-07-13', 0xb14367f3f4,  1, 1, 1, 1, 1, 1, 1),
@@ -1664,7 +1683,7 @@ INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,i
 	(20, 'La Divina Commedia'                                                                        , '1965-08-13', 0x7c1b54a949,  1, 14, 21, 12, 4, 2, 2),
 	(21, 'La Cenicienta'                                                                             , '1637-11-20', 0x7c1b54a949,  11, 11, 22, 14, 1, 2, 2);
 
-INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion,portada,id_coleccion,id_autor,id_bibliografico,id_editorial,id_idioma,id_formato,id_disponibilidad_ejemplar) VALUES
+INSERT INTO EJEMPLAR(id,nombre,fecha_publicacion, portada,id_coleccion, id_autor,id_bibliografico,id_editorial,id_idioma,id_formato,id_disponibilidad_ejemplar) VALUES
 	(22, 'Don Quijote'                                                                               , '1605-01-16', 0x3f860d2c54,  1,  17, 22, 14, 1, 1, 1),
 	(23, 'Historia de dos ciudades'                                                                  , '1859-11-26', 0x830d12a668,  3,  18, 22, 14, 1, 1, 1),
 	(24, 'El señor de los anillos'                                                                   , '1954-07-29', 0x7c8ee9234b,  11, 16, 22, 14, 1, 1, 1),
