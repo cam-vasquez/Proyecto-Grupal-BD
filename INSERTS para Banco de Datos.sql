@@ -14,7 +14,7 @@ INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES
 	(8 ,'Cinefórum: Derechos humanos y personas mayores', 76, 0x550a0385bc),
 	(9 ,'Jornada de entrenamiento en el uso de recursos online', 115, 0x5e3bb52393),
 	(10,'Exposición sobre la literatura en El Salvador', 90, 0x3d941fb9f1);
-
+	
 INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES 
 	(11,'Ferias de Actualización Bibliográfica'                                                                        , 65, 0x55bc3686f6),
 	(12,'Venta de Bibliografía Básica'                                                                                 , 35, 0xfcb9f108e0),
@@ -106,6 +106,8 @@ INSERT INTO EVENTO(id,titulo,asistentes,imagen) VALUES
 	(98,'Taller de Introducción a la Investigación Operativa'                                                          , 60, 0x41983dbf79),
 	(99,'Taller: La comunicación a través del juego'                                                                   , 90, 0xd8b435015f),
 	(100,'Taller para contar cuentos'                                                                                  , 122,0x0eb18a1ab1);
+
+
 
 INSERT INTO OBJETIVO_EVENTO(id,objetivo,id_evento) VALUES
     (1,'Promover la alfabetización digital y facilitar el acceso a las TICs a los miembros de la sociedad', 1),
