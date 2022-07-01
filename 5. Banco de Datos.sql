@@ -1,9 +1,23 @@
---
+---******************************
+
+-- BASE DE DATOS BINAES 2022
+    
+    -- Grupo LOS CONSTRAINT
+
+--* Integrantes
+    --> Fernanda Camila Vásquez Meléndez, #00065221
+    --> Alejandra Vanessa Serrano Córdova,, #0010520 ya no me acuerdo aahhhhhh
+    --> Henry Eduardo Escobar Lima, #00033721
+    --> Andrea Milena Cabrera no recuerdo x2 AHHHHHHHHHH
+
+---******************************
+
 CREATE DATABASE DB_BINAES_2022;
-
-DROP DATABASE DB_BINAES_2022;
-
+GO
 USE DB_BINAES_2022;
+GO
+
+--DROP DATABASE DB_BINAES_2022;
 
 --------- EVENTO ---------
 
@@ -181,18 +195,17 @@ CREATE TABLE TIPO_COLECCION(
     nombre VARCHAR(75) NOT NULL,
 );
 
+
+---******************************
 ------------ FK's --------------
----*
 
 ALTER TABLE OBJETIVO_EVENTO ADD CONSTRAINT fk_id_evento_objetivo FOREIGN KEY(id_evento) REFERENCES EVENTO(id)
-/*     ON DELETE CASCADE
-    ON UPDATE CASCADE */
-;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE ;
 
 ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_evento FOREIGN KEY(id_evento) REFERENCES EVENTO(id)
-   /*  ON DELETE CASCADE
-    ON UPDATE CASCADE */
-;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE ;
 
 ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_area FOREIGN KEY(id_area) REFERENCES AREA(id);
 ALTER TABLE ACTIVIDAD ADD CONSTRAINT fk_id_usuario FOREIGN KEY(id_usuario) REFERENCES USUARIO(id);
@@ -215,10 +228,8 @@ ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT pk_reserva_ejemplar PRIMARY KEY (id_
 ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT fk_id_usuario_reserva FOREIGN KEY (id_usuario) REFERENCES USUARIO(id);
 ALTER TABLE RESERVA_EJEMPLAR ADD CONSTRAINT fk_id_ejemplar_reserva FOREIGN KEY (id_ejemplar) REFERENCES EJEMPLAR(id);
 
----*
 ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_coleccion FOREIGN KEY(id_coleccion) REFERENCES COLECCION(id)
-    ON DELETE SET NULL
-;
+    ON DELETE SET NULL;
 
 ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_autor FOREIGN KEY(id_autor) REFERENCES AUTOR(id);
 ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_bibliografico FOREIGN KEY(id_bibliografico) REFERENCES ID_BIBLIOGRAFICO(id);
@@ -228,11 +239,12 @@ ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_formato FOREIGN KEY(id_formato) REFERE
 
 ALTER TABLE PALABRA_CLAVE ADD CONSTRAINT fk_id_ejemplar FOREIGN KEY(id_ejemplar) REFERENCES EJEMPLAR(id);
 
---*
 ALTER TABLE COLECCION ADD CONSTRAINT fk_id_tipo FOREIGN KEY(id_tipo) REFERENCES TIPO_COLECCION(id);
 ALTER TABLE COLECCION ADD CONSTRAINT fk_id_genero FOREIGN KEY(id_genero) REFERENCES GENERO(id);
 
 ALTER TABLE AREA ADD CONSTRAINT fk_id_disponibilidad_area FOREIGN KEY (id_disponibilidad_area) REFERENCES DISPONIBILIDAD_AREA(id);
 ALTER TABLE EJEMPLAR ADD CONSTRAINT fk_id_disponibilidad_ejemplar FOREIGN KEY (id_disponibilidad_ejemplar) REFERENCES DISPONIBILIDAD_EJEMPLAR(id);
 
------------ INSERTS --------------------------
+---******************************
+
+----------- INSERTS -------------
